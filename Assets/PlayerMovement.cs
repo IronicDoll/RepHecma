@@ -7,10 +7,10 @@ public class PlayerMovement : MonoBehaviour
 {
 
    public CoolCharacterController controller;
-   public GameObject groundCheck;
    public float runSpeed = 40F;
    internal bool canJump = false;
    private float jumpForce = 800f;
+   public BoxCollider2D head;
 
    float horizontalMove = 0F;
    bool jump = false;
@@ -24,16 +24,16 @@ public class PlayerMovement : MonoBehaviour
         if(canJump && Input.GetButtonDown("Jump"))
            Jump();
 
-        if (Input.GetButtonDown("Crouch"))
+        if (Input.GetAxisRaw("Vertical") < 0)
         {
-
-            crouch = true;
-        } else if (Input.GetButtonUp("Crouch"))
+           head.enabled = false;
+        }
+        else
         {
-            crouch = false;
+           head.enabled = true;
         }
     }
-
+   
     private void Jump()
     {
        GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
     {
        //Move our character
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-
-
     }
 
 
