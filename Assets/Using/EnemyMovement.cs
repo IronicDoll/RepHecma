@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -18,4 +19,12 @@ public class EnemyMovement : MonoBehaviour
        Vector3 movement = new Vector3(direction, 0, 0f);
        transform.position += movement.normalized * Time.fixedDeltaTime * speed;
    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+       if (col.gameObject.GetComponent<TilemapCollider2D>() != null)
+       {
+          direction = - direction;
+       }
+    }
 }
