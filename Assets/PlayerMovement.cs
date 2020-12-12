@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
    public CoolCharacterController controller;
    public GameObject groundCheck;
    public float runSpeed = 40F;
-   private bool canJump = false;
+   internal bool canJump = false;
    private float jumpForce = 800f;
 
    float horizontalMove = 0F;
@@ -30,20 +30,12 @@ public class PlayerMovement : MonoBehaviour
        canJump = false;
     }
 
+
    void FixedUpdate ()
     {
-
-        //Move our character
+       //Move our character
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-        jump = false; 
-
     }
 
-   void OnCollisionEnter2D(Collision2D col)
-   {
-      if (col.gameObject.GetComponent<TilemapCollider2D>() != null)
-      {
-         canJump = true;
-      }
-   }
+
 }
